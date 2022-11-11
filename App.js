@@ -1,19 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import RootNavigator from './src/Navigation/RootNavigator';
+import Login from './src/screen/Login';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Danish Ansari</Text>
-    </View>
+    <>
+      <RootNavigator />
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

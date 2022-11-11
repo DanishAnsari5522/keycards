@@ -1,12 +1,12 @@
 import React from 'react'
 import { View, Text,StyleSheet,Button } from 'react-native'
 
-function Signup({navigation}) {
+function Main({navigation}) {
     return (
         <View style={styles.sig}>
-            <Text>Signup Page</Text>
+            <Text>Main Page</Text>
             <Button
-                title="Main Screen"
+                title="Login"
                 color="#841584"
                 onPress={() => { navigation.navigate("Login") }}
             />
@@ -23,4 +23,4 @@ const styles=StyleSheet.create({
     }
 })
 
-export default Signup;
+export default Main;
