@@ -8,9 +8,9 @@ function Home() {
     return (
         <>
             <View style={styles.contaner}>
-                <View style={styles.navigation}>
+                {/* <View style={styles.navigation}>
                     <HomeScreenHeader />
-                </View>
+                </View> */}
                 <View style={styles.bottomnavigation}>
                     <BottomNavigation />
                 </View>
@@ -33,7 +33,7 @@ const styles=StyleSheet.create({
     },
     bottomnavigation:{
         width,
-        height:height-50,
+        height:height-0,
         backgroundColor:'red',
     }
 

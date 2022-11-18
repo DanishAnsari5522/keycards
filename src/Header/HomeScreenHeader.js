@@ -14,7 +14,7 @@ function HomeScreenHeader()
 
 const styles=StyleSheet.create({
     contaner:{
-        height:50,
+        height:60,
         paddingHorizontal:20,
         flexDirection:'row',
         justifyContent:'space-between',
