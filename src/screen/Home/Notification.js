@@ -12,41 +12,6 @@ function Notification() {
             <Container>
                 <ScrollView>
                     <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
-                    <Text style={styles.t}>Notification Screen</Text>
                 </ScrollView>
             </Container>
 

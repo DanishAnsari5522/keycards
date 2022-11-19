@@ -10,7 +10,9 @@ function SearchScreenHeader() {
             <View style={styles.headercomp}>
                 <View style={styles.ds}>
                     <TouchableOpacity onPress={()=>{navigation.navigate("Home")}}><Icon name="arrow-back" color='gray' size={25} style={styles.arrowback} /></TouchableOpacity>
-                    <TextInput placeholder="Search Name" style={styles.searchbox}></TextInput>
+                    <TextInput placeholder="Search Name" 
+                    placeholderTextColor="gray"
+                    style={styles.searchbox}></TextInput>
                 </View>
             </View>
         </View>

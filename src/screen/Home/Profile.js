@@ -18,9 +18,7 @@ function Profile() {
 }
 
 const styles = StyleSheet.create({
-    profile: {
-        color: Theme.colors.textColor
-    }
+ 
 })
 
 export default Profile;

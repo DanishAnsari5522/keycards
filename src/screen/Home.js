@@ -8,9 +8,6 @@ function Home() {
     return (
         <>
             <View style={styles.contaner}>
-                {/* <View style={styles.navigation}>
-                    <HomeScreenHeader />
-                </View> */}
                 <View style={styles.bottomnavigation}>
                     <BottomNavigation />
                 </View>
@@ -27,13 +24,9 @@ const styles=StyleSheet.create({
           height,
           paddingTop: Constants.statusBarHeight,
     },
-    navigation:{
-        width,
-        height:50,
-    },
     bottomnavigation:{
         width,
-        height:height-0,
+        height:height,
         backgroundColor:'red',
     }
 

@@ -6,7 +6,7 @@ function HomeScreenHeader()
 {
     return(
         <View style={styles.contaner}>
-            <Text style={styles.username}>Danish Ansari</Text>
+            <Text style={styles.username}>KeyCards</Text>
             <Image source={require('../../assets/Profile.png')} style={styles.profileimage}/>
         </View>
     )
