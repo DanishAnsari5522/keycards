@@ -2,6 +2,7 @@ import { View, Text, Button, StyleSheet, Image, TextInput, Dimensions, ScrollVie
 import React, { useState } from 'react'
 import LoginScreenImage from '../../assets/LoginScreenImage.png'
 import Icon from '@expo/vector-icons/MaterialIcons'
+import Theme from '../component/Theme'
 
 
 function Login({ navigation }) {
@@ -26,46 +27,57 @@ function Login({ navigation }) {
         }
     }
     return (
-        <ScrollView>
-            <View style={styles.container}>
-            <Image source={LoginScreenImage} resizeMode="cover" style={styles.Loginimmg} />
-            <View style={styles.logincomp}>
-                <Text style={styles.logintext}>Login</Text>
-                    {error && <Text style={styles.error}>{error}</Text>}
-                    {success && <Text style={styles.success}>{success}</Text>}
-                <View style={styles.inputcomp}>
+        <View style={styles.c}>
 
-                    <Icon name="mail" color='gray' size={22} style={styles.attherate} />
-                    <TextInput placeholder="Email Id" style={styles.input1} value={email} onChangeText={onChangeEmail}></TextInput>
-                </View>
 
-                <View style={styles.inputcomp}>
-                    <Icon name="lock" color='gray' size={22} style={styles.attherate} />
-                    <View>
-                        <TextInput secureTextEntry={true} placeholder="Password" style={styles.input2} value={password} onChangeText={onChangePassword}></TextInput>
-                        <Text style={styles.forgot} onPress={() => { navigation.navigate("ForgotPassword") }} >forgot?</Text>
+            <ScrollView>
+                <View style={styles.container}>
+                    <Image source={LoginScreenImage} resizeMode="cover" style={styles.Loginimmg} />
+                    <View style={styles.logincomp}>
+                        <Text style={styles.logintext}>Login</Text>
+                        {error && <Text style={styles.error}>{error}</Text>}
+                        {success && <Text style={styles.success}>{success}</Text>}
+                        <View style={styles.inputcomp}>
 
+                            <Icon name="mail" color='white' size={22} style={styles.attherate} />
+                            <TextInput placeholder="Email Id" style={styles.input1} value={email} placeholderTextColor="gray" onChangeText={onChangeEmail}></TextInput>
+                        </View>
+
+                        <View style={styles.inputcomp}>
+                            <Icon name="lock" color='white' size={22} style={styles.attherate} />
+                            <View>
+                                <TextInput secureTextEntry={true} placeholder="Password" style={styles.input2} value={password} placeholderTextColor="gray" onChangeText={onChangePassword}></TextInput>
+                                <Text style={styles.forgot} onPress={() => { navigation.navigate("ForgotPassword") }} >forgot?</Text>
+
+                            </View>
+                        </View>
+                        <View>
+                            {/*  */}
+                            <Text style={styles.loginbtn} onPress={handleSubmit}>Login</Text>
+                        </View>
+                        <Text style={styles.forRegister}>New to KeyCards?  <Text onPress={() => { navigation.navigate("Signup") }} style={styles.forRegisterlink}>Register</Text></Text>
                     </View>
                 </View>
-                <View>
-                    {/*  */}
-                    <Text style={styles.loginbtn} onPress={handleSubmit}>Login</Text>
-                </View>
-                <Text style={styles.forRegister}>New to KeyCards?  <Text onPress={() => { navigation.navigate("Signup") }} style={styles.forRegisterlink}>Register</Text></Text>
-            </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </View>
     )
 }
 
 
 const { width } = Dimensions.get("window")
+const { height } = Dimensions.get("window")
+
 const styles = StyleSheet.create({
+    c: {
+        width:'100%',
+        height:'100%',
+        backgroundColor: Theme.colors.background
+    },
     container: {
         width,
         alignItems: "center",
         justifyContent: "space-between",
-        padding:20
+        paddingHorizontal: 20,
 
     },
 
@@ -80,8 +92,7 @@ const styles = StyleSheet.create({
 
     Loginimmg: {
         width,
-        height: 350,
-        marginBottom: 0
+        height: 450,
     },
     logincomp: {
         width: '100%',
@@ -112,7 +123,8 @@ const styles = StyleSheet.create({
         height: 50,
         fontSize: 16,
         width: '100%',
-        marginLeft: 10
+        marginLeft: 10,
+        color: Theme.colors.textColor
     },
     input2: {
         height: 50,
@@ -121,14 +133,17 @@ const styles = StyleSheet.create({
         marginVertical: 0,
         marginLeft: 10,
         paddingRight: 90,
+        color: Theme.colors.textColor
+
     },
     logintext: {
         fontSize: 30,
         fontWeight: 'bold',
-        marginBottom: 0
+        marginBottom: 0,
+        color: Theme.colors.textColor
     },
     loginbtn: {
-        backgroundColor: '#fea9a9',
+        backgroundColor: Theme.colors.headerBackground,
         color: 'white',
         width: '100%',
         height: 50,
@@ -141,10 +156,11 @@ const styles = StyleSheet.create({
     },
     forRegister: {
         marginTop: 60,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        color: Theme.colors.textColor
     },
     forRegisterlink: {
-        color: 'blue'
+        color: '#567BFF'
     },
     // forgot
     forgot: {
@@ -152,7 +168,7 @@ const styles = StyleSheet.create({
         right: 0,
         top: 15,
         fontSize: 14,
-        color: 'blue',
+        color: '#567BFF',
     }
 });
 

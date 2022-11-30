@@ -2,6 +2,7 @@ import { View, Text, Button, StyleSheet, Dimensions, Image, TextInput, ScrollVie
 import React, { useState } from 'react'
 import SignUpScreenImage from '../../assets/SignUpScreenImage.png'
 import Icon from '@expo/vector-icons/MaterialIcons'
+import Theme from '../component/Theme'
 
 function Signup({ navigation }) {
     const [fullname, onChangeFullname] = useState('')
@@ -44,29 +45,26 @@ function Signup({ navigation }) {
 
                     <View style={styles.inputcomp}>
                         <Icon name="person" color='gray' size={22} style={styles.attherate} />
-                        <TextInput placeholder="Full Name" style={styles.input1} value={fullname} onChangeText={onChangeFullname}></TextInput>
+                        <TextInput placeholder="Full Name" style={styles.input1} value={fullname} placeholderTextColor="gray" onChangeText={onChangeFullname}></TextInput>
                     </View>
 
                     <View style={styles.inputcomp}>
                         <Icon name="mail" color='gray' size={22} style={styles.attherate} />
-                        <TextInput placeholder="Email Id" style={styles.input1} value={email} onChangeText={onChangeEmail}></TextInput>
+                        <TextInput placeholder="Email Id" style={styles.input1} value={email} placeholderTextColor="gray" onChangeText={onChangeEmail}></TextInput>
                     </View>
                     <View style={styles.inputcomp}>
                         <Icon name="store" color='gray' size={22} style={styles.attherate} />
-                        <TextInput placeholder="Phone No." style={styles.input1} value={phoneNo} onChangeText={onChangePhoneNo}></TextInput>
+                        <TextInput placeholder="Phone No." style={styles.input1} value={phoneNo} placeholderTextColor="gray" onChangeText={onChangePhoneNo}></TextInput>
                     </View>
                     <View style={styles.inputcomp}>
                         <Icon name="lock" color='gray' size={22} style={styles.attherate} />
-                        <TextInput secureTextEntry={true} placeholder="Password" style={styles.input1} value={password} onChangeText={onChangePassword}></TextInput>
+                        <TextInput secureTextEntry={true} placeholder="Password" style={styles.input1} placeholderTextColor="gray" value={password} onChangeText={onChangePassword}></TextInput>
                     </View>
 
                     <View style={styles.inputcomp}>
                         <Icon name="lock" color='gray' size={22} style={styles.attherate} />
-                        <TextInput secureTextEntry={true} placeholder="Conform Password" style={styles.input1} ></TextInput>
+                        <TextInput secureTextEntry={true} placeholder="Conform Password" style={styles.input1} placeholderTextColor="gray" ></TextInput>
                     </View>
-
-
-
                     <View>
                         <Text style={styles.loginbtn} onPress={handleSubmit}>Sign Up</Text>
                     </View>
@@ -85,6 +83,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         padding: 20,
+        backgroundColor:Theme.colors.background
     },
     error: {
         color: 'red'
@@ -127,16 +126,18 @@ const styles = StyleSheet.create({
         height: 50,
         fontSize: 16,
         width: '100%',
-        marginLeft: 10
+        marginLeft: 10,
+        color:Theme.colors.textColor
     },
 
     logintext: {
         fontSize: 30,
         fontWeight: 'bold',
-        marginBottom: 10
+        marginBottom: 10,
+        color:Theme.colors.textColor
     },
     loginbtn: {
-        backgroundColor: '#fea9a9',
+        backgroundColor:Theme.colors.headerBackground,
         color: 'white',
         width: '100%',
         height: 50,
@@ -149,10 +150,11 @@ const styles = StyleSheet.create({
     },
     forRegister: {
         marginTop: 60,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        color: Theme.colors.textColor
     },
     forRegisterlink: {
-        color: 'blue'
+        color: "#567BFF",
     },
     // forgot
     forgot: {
