@@ -17,16 +17,12 @@ function Upload() {
                     <TextInput
                         multiline={true}
                         numberOfLines={4}
-                        placeholder="Enter Your key"
+                        placeholder="Enter Your key . . . ."
                         placeholderTextColor="gray"
                     />
-                     {/* <Button
-                       title="Share"
-                       color="#841584"
-                      
-                     /> */}
-                     <Text  style={styles.send}>Share</Text>
+                    
                 </View>
+                <Text style={styles.send}>Share</Text>
 
 
 
@@ -39,7 +35,8 @@ const styles = StyleSheet.create({
     info: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 40
+        marginTop: 40,
+        marginBottom:20
     },
     prfile: {
         width: 50,
@@ -51,14 +48,19 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         fontSize: 20
     },
+    upload:{
+      height:150
+    },
     send:{
         width:100,
         height:40,
         borderRadius:10,
         backgroundColor:"#841584",
         textAlign:'center',
-        padding:5,
-        color:"white"
+        padding:9,
+        color:"white",
+        marginTop:10,
+        alignSelf:'flex-end'
     }
 })
 
