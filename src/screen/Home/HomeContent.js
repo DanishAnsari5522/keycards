@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, ScrollView, StyleSheet, FlatList, TouchableOpacity, Image,Dimensions } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, FlatList, TouchableOpacity, Image, Dimensions } from 'react-native';
 import Theme from "../../component/Theme";
 import HomeScreenHeader from "../../Header/HomeScreenHeader";
 import Container from "../../component/Container";
@@ -93,10 +93,10 @@ const styles = StyleSheet.create({
     contaner: {
         height: 250,
         backgroundColor: Theme.colors.cardcolor,
-        marginVertical: 20
+        marginBottom: 15,
     },
     d: {
-        height: height-100,
+        height: height - 100,
         backgroundColor: Theme.colors.background
     },
     text: {
@@ -130,12 +130,12 @@ const styles = StyleSheet.create({
     },
     username: {
         fontSize: 18,
-        color:Theme.colors.textColor
+        color: Theme.colors.textColor
     },
     lastmsg: {
         fontSize: 12,
         marginLeft: 4,
-        color:Theme.colors.textColor
+        color: Theme.colors.textColor
     },
     msgtime: {
         fontSize: 14,
@@ -145,12 +145,12 @@ const styles = StyleSheet.create({
         height: 140,
         paddingLeft: 12,
         // backgroundColor: 'gray',
-        borderBottomColor:'gray',
-        borderBottomWidth:1,
-        borderTopWidth:1,
-        borderTopColor:'gray',
-        alignItems:'center',
-        justifyContent:'center'
+        borderBottomColor: 'gray',
+        borderBottomWidth: 1,
+        borderTopWidth: 1,
+        borderTopColor: 'gray',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     cardfooter: {
         height: 50,
@@ -159,12 +159,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between'
     },
-    redeem:{
-        color:Theme.colors.textColor,
-        fontSize:18
+    redeem: {
+        color: Theme.colors.textColor,
+        fontSize: 18
     },
-    card:{
-        color:Theme.colors.textColor
+    card: {
+        color: Theme.colors.textColor
     }
 
 })

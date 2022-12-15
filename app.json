@@ -24,10 +24,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/D.png",
         "backgroundColor": "#062635"
-      }
+      },
+      "package": "com.zanish.keycards"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "12dae371-cb68-4bd0-ad8f-758cd267fbad"
+      }
     }
   }
 }

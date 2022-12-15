@@ -1,5 +1,5 @@
 import React from "react"
-import { View, Text, StyleSheet, Image, TextInput,Button } from 'react-native';
+import { View, Text, StyleSheet, Image, TextInput, Button } from 'react-native';
 import Container from "../../component/Container";
 import profile from "../../../assets/Profile.png"
 import Theme from "../../component/Theme";
@@ -20,7 +20,6 @@ function Upload() {
                         placeholder="Enter Your key . . . ."
                         placeholderTextColor="gray"
                     />
-                    
                 </View>
                 <Text style={styles.send}>Share</Text>
 
@@ -36,7 +35,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 40,
-        marginBottom:20
+        marginBottom: 20
     },
     prfile: {
         width: 50,
@@ -48,19 +47,20 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         fontSize: 20
     },
-    upload:{
-      height:150
+    upload: {
+        height: 150
     },
-    send:{
-        width:100,
-        height:40,
-        borderRadius:10,
-        backgroundColor:"#841584",
-        textAlign:'center',
-        padding:9,
-        color:"white",
-        marginTop:10,
-        alignSelf:'flex-end'
+    send: {
+        width: 100,
+        height: 40,
+        borderRadius: 10,
+        backgroundColor: "#841584",
+        textAlign: 'center',
+        padding: 8,
+        color: "white",
+        marginTop: 10,
+        alignSelf: 'flex-end',
+        fontSize: 15
     }
 })
 
