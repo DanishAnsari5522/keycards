@@ -1,4 +1,4 @@
-import { View, Text, Button, StyleSheet, Dimensions, Image, TextInput, ScrollView, KeyboardAvoidingView } from 'react-native'
+import { View, Text, Button, StyleSheet, Dimensions, Image, TextInput, ScrollView, KeyboardAvoidingView,TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import SignUpScreenImage from '../../assets/SignUpScreenImage.png'
 import Icon from '@expo/vector-icons/MaterialIcons'
@@ -9,6 +9,7 @@ function Signup({ navigation }) {
     const [email, onChangeEmail] = useState('')
     const [phoneNo, onChangePhoneNo] = useState('')
     const [password, onChangePassword] = useState('')
+    const [cpassword, onChangeCPassword] = useState('')
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
 
@@ -17,7 +18,7 @@ function Signup({ navigation }) {
         setSuccess('')
 
         const isValidEmail = /\S+@\S+\.\S+/.test(email);
-        const isphoneNo=phoneNo.length;
+        const isphoneNo = phoneNo.length;
         console.log(isphoneNo);
         if (!fullname) {
             setError("FullName Required")
@@ -25,11 +26,14 @@ function Signup({ navigation }) {
             setError("Invalid Email")
         } else if (!phoneNo) {
             setError("phoneNo Required")
-        }else if(!isphoneNo==10){
+        } else if (!isphoneNo == 10) {
             setError("Enter 10 No.")
-        }else if (!password) {
+        } else if (!password) {
             setError("Password Required")
+        }else if(password!=cpassword){
+            setError("Password Not match")
         } else {
+            fetch('http://10.0.2.2/signup')
             setSuccess("Done")
         }
     }
@@ -63,10 +67,12 @@ function Signup({ navigation }) {
 
                     <View style={styles.inputcomp}>
                         <Icon name="lock" color='gray' size={22} style={styles.attherate} />
-                        <TextInput secureTextEntry={true} placeholder="Conform Password" style={styles.input1} placeholderTextColor="gray" ></TextInput>
+                        <TextInput secureTextEntry={true} placeholder="Conform Password" style={styles.input1} placeholderTextColor="gray" value={cpassword} onChangeText={onChangeCPassword}></TextInput>
                     </View>
                     <View>
-                        <Text style={styles.loginbtn} onPress={handleSubmit}>Sign Up</Text>
+                        <TouchableOpacity onPress={handleSubmit}>
+                            <Text style={styles.loginbtn}>Sign Up</Text>
+                        </TouchableOpacity>
                     </View>
                     <Text style={styles.forRegister}>already have an account? <Text onPress={() => { navigation.navigate("Home") }} style={styles.forRegisterlink}>Login</Text></Text>
                 </View>
@@ -83,7 +89,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         padding: 20,
-        backgroundColor:Theme.colors.background
+        backgroundColor: Theme.colors.background
     },
     error: {
         color: 'red'
@@ -127,17 +133,17 @@ const styles = StyleSheet.create({
         fontSize: 16,
         width: '100%',
         marginLeft: 10,
-        color:Theme.colors.textColor
+        color: Theme.colors.textColor
     },
 
     logintext: {
         fontSize: 30,
         fontWeight: 'bold',
         marginBottom: 10,
-        color:Theme.colors.textColor
+        color: Theme.colors.textColor
     },
     loginbtn: {
-        backgroundColor:Theme.colors.headerBackground,
+        backgroundColor: Theme.colors.headerBackground,
         color: 'white',
         width: '100%',
         height: 50,
