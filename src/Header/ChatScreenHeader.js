@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native';
 import Theme from "../component/Theme";
 
-function ProfileScreenHeader() {
+function ChatScreenHeader() {
     const navigation = useNavigation();
     return (
         <View>
@@ -13,8 +13,6 @@ function ProfileScreenHeader() {
                     <TouchableOpacity onPress={() => { navigation.navigate('Home') }}><Icon name="arrow-back" color='gray' size={25} style={styles.arrowback} /></TouchableOpacity>
                     <Text style={styles.headernamee}>Danish Ansari</Text>
                 </View>
-                <TouchableOpacity onPress={() => { navigation.navigate('Home') }}><Ionicons name="menu-outline" color='gray' size={30} style={styles.arrowback} /></TouchableOpacity>
-
             </View>
         </View>
     )
@@ -24,7 +22,7 @@ const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
     headercomp: {
-        width: width,
+        width,
         height: 60,
         paddingHorizontal: 20,
         backgroundColor: Theme.colors.headerBackground,
@@ -50,4 +48,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default ProfileScreenHeader;
+export default ChatScreenHeader;

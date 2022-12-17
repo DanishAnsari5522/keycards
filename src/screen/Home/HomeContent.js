@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Text, ScrollView, StyleSheet, FlatList, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, FlatList, TouchableOpacity, Image, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import Theme from "../../component/Theme";
 import HomeScreenHeader from "../../Header/HomeScreenHeader";
 import Container from "../../component/Container";
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
+import { BottomPopup } from "../BottomPopup/Index";
 
 const data = [
     {
@@ -47,7 +48,14 @@ const data = [
 ]
 
 function HomeContent() {
+    let popupRef = React.createRef()
+    const onShowPopup = () => {
+        popupRef.show()
+    }
 
+    const onClosePopup = () => { 
+        popupRef.close()
+    }
 
     const renderItem = ({ item }) => (
         <View style={styles.contaner}>
@@ -60,7 +68,9 @@ function HomeContent() {
                     </View>
                 </View>
                 <Text style={styles.msgtime}>
-                    <Icon name="dots-vertical" color="white" size={20} />
+                    <TouchableWithoutFeedback onPress={onShowPopup}>
+                        <Icon name="dots-vertical" color="white" size={20} />
+                    </TouchableWithoutFeedback>
                 </Text>
             </View>
             <View style={styles.cardarea}>
@@ -83,6 +93,10 @@ function HomeContent() {
                     renderItem={renderItem}
                 />
             </View>
+            <BottomPopup
+                ref={(target) => popupRef = target}
+                onTouchOutside={onClosePopup}
+            />
         </>
     )
 
@@ -104,6 +118,7 @@ const styles = StyleSheet.create({
     },
     navigation: {
         height: 60,
+        marginTop: 25
     },
 
     // cards

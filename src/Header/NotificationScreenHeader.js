@@ -20,7 +20,8 @@ const styles=StyleSheet.create({
         paddingHorizontal:20,
         backgroundColor:Theme.colors.headerBackground,
         alignItems:'center',
-        flexDirection:'row'
+        flexDirection:'row',
+        marginTop:30
     },
     notification:{
         color:Theme.colors.textColor,

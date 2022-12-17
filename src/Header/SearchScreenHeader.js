@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
         height: 60,
         padding:0,
         paddingHorizontal:10,
-        backgroundColor:Theme.colors.headerBackground
+        backgroundColor:Theme.colors.headerBackground,
+        marginTop:30
     },
     ds:{
         flex:1,

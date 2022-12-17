@@ -25,7 +25,6 @@ const Tab = createBottomTabNavigator();
 function BottomNavigation() {
     return (
         <>
-            <NavigationContainer independent={true} >
                 <Tab.Navigator
 
                     initialRouteName='homeContent'
@@ -56,7 +55,7 @@ function BottomNavigation() {
                         inactiveTintColor: 'blue',
                         showLabel: false,
                         style:{
-                            backgroundColor:'yellow',
+                            backgroundColor:'red',
                             height:60
                         }
                       }}
@@ -68,7 +67,6 @@ function BottomNavigation() {
                     <Tab.Screen name={notification} component={Notification} options={{ headerShown: false }} />
                     <Tab.Screen name={profile} component={Profile} options={{ headerShown: false }} />
                 </Tab.Navigator>
-            </NavigationContainer>
         </>
     )
 }

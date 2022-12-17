@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
     info: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 40,
-        marginBottom: 20
+        marginTop: 70,
+        marginBottom: 20,
     },
     prfile: {
         width: 50,

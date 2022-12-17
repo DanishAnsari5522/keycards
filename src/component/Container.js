@@ -6,7 +6,7 @@ type Props = React.ComponentProps<typeof View> & {
     style?: StyleProp<ViewStyle>;
 };
 const Container = ({ children, style }: Props) => (
-    <View style={[{ flex: 1, backgroundColor: Theme.colors.background, color: Theme.colors.textColor ,paddingHorizontal:20}]}>
+    <View style={[{ flex: 1, backgroundColor: Theme.colors.background, color: Theme.colors.textColor, paddingHorizontal: 20 }]}>
         {children}
     </View>
 );

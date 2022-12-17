@@ -30,6 +30,8 @@ function Signup({ navigation }) {
             setError("Enter 10 No.")
         } else if (!password) {
             setError("Password Required")
+        }else if(!cpassword){
+            setError("Conform Password Required")
         }else if(password!=cpassword){
             setError("Password Not match")
         } else {
