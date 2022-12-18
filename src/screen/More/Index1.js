@@ -1,13 +1,10 @@
 import React from 'react'
-import { View, Text, Dimensions, Modal, TouchableWithoutFeedback, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, Dimensions, Modal, TouchableWithoutFeedback, StyleSheet } from 'react-native'
 import Theme from '../../component/Theme';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
-import Icon1 from '@expo/vector-icons/Entypo';
-import Links from './Links'
 
-
-export class More extends React.Component {
-
+const deviceHeight = Dimensions.get('window').height;
+export class More1 extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -22,28 +19,27 @@ export class More extends React.Component {
     }
 
     renderOutsideTouchable(onTouch) {
-        const view = <View style={{ flex: 1, width: '50%', height: '100%' }} />
+        const view = <View style={{ flex: 1, width: '100%' }} />
         if (!onTouch) return view
 
         return (
-            <TouchableWithoutFeedback onPress={onTouch} style={{ flex: 1, width: '50%', hright: '100%' }} >
+            <TouchableWithoutFeedback onPress={onTouch} style={{ flex: 1, width: '100%' }} >
                 {view}
             </TouchableWithoutFeedback>
-
         )
     }
+
+
 
     render() {
         let { show } = this.state
         const { onTouchOutside } = this.props
-
         return (
             <Modal
                 animationType={'fade'}
                 transparent={true}
                 visible={show}
                 onRequestClose={this.close}
-                style={{ alignSelf: 'flex-end' }}
             >
                 <View style={{
                     flex: 1,
@@ -53,15 +49,16 @@ export class More extends React.Component {
                     {this.renderOutsideTouchable(onTouchOutside)}
                     <View style={{
                         backgroundColor: Theme.colors.cardcolor,
-                        width: '60%',
+                        width: '99%',
+                        borderTopRightRadius: 10,
+                        borderTopLeftRadius: 10,
                         paddingHorizontal: 10,
-                        maxHeight: '100%',
-                        marginLeft: '40%'
+                        maxHeight: deviceHeight
                     }}>
-                        <View style={{ height: '100%' }}>
-                            <Icon1 name="cross" color="white" size={30} style={{ marginTop: 15, paddingLeft: -20, marginBottom: 10 }} onPress={this.close} />
+                        <View style={{ height: 200 }}>
                             <View style={styles.foricon}>
-                                <Links />
+                                <Icon name="share-variant-outline" color="white" size={20} style={styles.icon}/>
+                                <Icon name="message-outline" color="white" size={25} style={styles.icon}/>
                             </View>
                         </View>
                     </View>
@@ -71,21 +68,22 @@ export class More extends React.Component {
     }
 }
 
-const styles = StyleSheet.create({
-    foricon: {
+const styles=StyleSheet.create({
+    foricon:{
+        flexDirection:'row',
     },
-    icon: {
-        width: 55,
-        height: 55,
-        padding: 12,
-        borderRadius: 40,
-        borderColor: 'gray',
-        borderWidth: 1,
-        fontSize: 30,
-        alignItems: 'center',
-        justifyContent: 'center',
-        alignSelf: 'center',
-        margin: 10
-    },
+    icon:{
+        width:55,
+        height:55,
+        padding:12,
+        borderRadius:40,
+        borderColor:'gray',
+        borderWidth:1,
+        fontSize:30,
+        alignItems:'center',
+        justifyContent:'center',
+        alignSelf:'center',
+        margin:10
 
+    }
 })
