@@ -1,13 +1,13 @@
-import { View, Text, Button, StyleSheet, Dimensions, Image, TextInput, ScrollView, KeyboardAvoidingView,TouchableOpacity } from 'react-native'
+import { View, Text, Button, StyleSheet, Dimensions, Image, TextInput, ScrollView, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import SignUpScreenImage from '../../assets/SignUpScreenImage.png'
 import Icon from '@expo/vector-icons/MaterialIcons'
 import Theme from '../component/Theme'
 
 function Signup({ navigation }) {
-    const [fullname, onChangeFullname] = useState('')
+    const [name, onChangeName] = useState('')
     const [email, onChangeEmail] = useState('')
-    const [phoneNo, onChangePhoneNo] = useState('')
+    const [phone, onChangePhone] = useState('')
     const [password, onChangePassword] = useState('')
     const [cpassword, onChangeCPassword] = useState('')
     const [error, setError] = useState('')
@@ -18,25 +18,40 @@ function Signup({ navigation }) {
         setSuccess('')
 
         const isValidEmail = /\S+@\S+\.\S+/.test(email);
-        const isphoneNo = phoneNo.length;
+        const isphoneNo = phone.length;
         console.log(isphoneNo);
-        if (!fullname) {
+        if (!name) {
             setError("FullName Required")
         } else if (!isValidEmail) {
             setError("Invalid Email")
-        } else if (!phoneNo) {
+        } else if (!phone) {
             setError("phoneNo Required")
         } else if (!isphoneNo == 10) {
             setError("Enter 10 No.")
         } else if (!password) {
             setError("Password Required")
-        }else if(!cpassword){
+        } else if (!cpassword) {
             setError("Conform Password Required")
-        }else if(password!=cpassword){
+        } else if (password != cpassword) {
             setError("Password Not match")
         } else {
-            fetch('http://10.0.2.2/signup')
-            setSuccess("Done")
+            fetch('http://localhost:3000/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, email, phone, password })
+            })
+                .then(res => res.json()).then(
+                    data => {
+                        console.log(data);
+                        if (data.error) {
+                            setError(data.error);
+                        } else {
+                            navigation.navigate('Home');
+                        }
+                    }
+                )
         }
     }
     return (
@@ -51,7 +66,7 @@ function Signup({ navigation }) {
 
                     <View style={styles.inputcomp}>
                         <Icon name="person" color='gray' size={22} style={styles.attherate} />
-                        <TextInput placeholder="Full Name" style={styles.input1} value={fullname} placeholderTextColor="gray" onChangeText={onChangeFullname}></TextInput>
+                        <TextInput placeholder="Full Name" style={styles.input1} value={name} placeholderTextColor="gray" onChangeText={onChangeName}></TextInput>
                     </View>
 
                     <View style={styles.inputcomp}>
@@ -60,7 +75,7 @@ function Signup({ navigation }) {
                     </View>
                     <View style={styles.inputcomp}>
                         <Icon name="store" color='gray' size={22} style={styles.attherate} />
-                        <TextInput placeholder="Phone No." style={styles.input1} value={phoneNo} placeholderTextColor="gray" onChangeText={onChangePhoneNo}></TextInput>
+                        <TextInput placeholder="Phone No." style={styles.input1} value={phone} placeholderTextColor="gray" onChangeText={onChangePhone}></TextInput>
                     </View>
                     <View style={styles.inputcomp}>
                         <Icon name="lock" color='gray' size={22} style={styles.attherate} />

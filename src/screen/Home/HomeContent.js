@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { View, Text, ScrollView, StyleSheet, FlatList, TouchableOpacity, Image, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import Theme from "../../component/Theme";
 import HomeScreenHeader from "../../Header/HomeScreenHeader";
@@ -11,13 +11,13 @@ const data = [
         id: 1,
         username: "Danish Ansari",
         lastmsg: "hii..",
-        msgtime: "1m ago"
+        msgtime: "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available"
     },
     {
         id: 2,
         username: "Deepak Kumar",
         lastmsg: "haaa bhai..",
-        msgtime: "2m ago"
+        msgtime: "publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is availa"
     },
     {
         id: 3,
@@ -49,14 +49,19 @@ const data = [
 
 function HomeContent() {
     let popupRef = React.createRef()
+    const [more, setMore] = useState(false)
+
     const onShowPopup = () => {
         popupRef.show()
     }
 
-    const onClosePopup = () => { 
+    const onClosePopup = () => {
         popupRef.close()
     }
-
+     
+    const toggleShowMore = () =>{
+        setMore(!more)
+    }
     const renderItem = ({ item }) => (
         <View style={styles.contaner}>
             <View style={styles.usercard}>
@@ -80,6 +85,7 @@ function HomeContent() {
                 <Text style={styles.redeem}>redeem</Text>
                 <Icon name="message-outline" color="white" size={25} />
             </View>
+            <Text numberOfLines={!more ? 1 : undefined} onPress={toggleShowMore} ellipsizeMode='tail' style={{color:Theme.colors.textColor,paddingHorizontal:15}}>{item.msgtime}</Text>
         </View>
     )
     return (
@@ -105,7 +111,8 @@ const { height } = Dimensions.get("window")
 
 const styles = StyleSheet.create({
     contaner: {
-        height: 250,
+        // height: 250,
+        paddingVertical: 10,
         backgroundColor: Theme.colors.cardcolor,
         marginBottom: 15,
     },
