@@ -1,10 +1,45 @@
-import React from "react"
-import { View, Text, StyleSheet, Image, TextInput, Button } from 'react-native';
+import React, { useState } from "react"
+import { View, Text, StyleSheet, Image, TextInput, Button, TouchableOpacity } from 'react-native';
 import Container from "../../component/Container";
 import profile from "../../../assets/Profile.png"
 import Theme from "../../component/Theme";
 
 function Upload() {
+    const [cardkey, onChangeCardskey] = useState('');
+    const [description, onChangeDescription] = useState('');
+    const [validupto, onChangeValidupto] = useState('');
+    const [error, setError] = useState('');
+    const handleSubmit = async (e) => {
+        setError('')
+        const userId = JSON.parse(localStorage.getItem('user'))
+        console.log(userId._id);
+        if (!cardkey) {
+            setError("key Required")
+        } else if (!description) {
+            setError("description Required")
+        } else if (!validupto) {
+            setError("validupto Required")
+        } else {
+            fetch('http://localhost:3000/addcard', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ cardkey, description, validupto, password })
+            })
+                .then(res => res.json()).then(
+                    data => {
+                        console.log(data);
+                        if (data.error) {
+                            setError(data.error);
+                        } else {
+                            navigation.navigate('Home');
+                        }
+                    }
+                )
+        }
+    }
+
     return (
         <>
             <Container>
@@ -12,16 +47,40 @@ function Upload() {
                     <Image source={profile} resizeMode="cover" style={styles.prfile} />
                     <Text style={styles.username}>User Name</Text>
                 </View>
-
+                {error && <Text style={styles.error}>{error}</Text>}
                 <View style={styles.upload}>
                     <TextInput
                         multiline={true}
-                        numberOfLines={4}
+                        numberOfLines={2}
                         placeholder="Enter Your key . . . ."
                         placeholderTextColor="gray"
+                        style={{ color: 'white', paddingLeft: 10 }}
+                        value={cardkey}
+                        onChangeText={onChangeCardskey}
+                    />
+                    <TextInput
+                        multiline={true}
+                        numberOfLines={2}
+                        placeholder="Enter key Description . . . ."
+                        placeholderTextColor="gray"
+                        style={{ color: 'white', paddingLeft: 10 }}
+                        value={description}
+                        onChangeText={onChangeDescription}
+                    />
+                    <TextInput
+                        multiline={true}
+                        numberOfLines={2}
+                        placeholder="Enter Your key . . . ."
+                        placeholderTextColor="gray"
+                        style={{ color: 'white', paddingLeft: 10 }}
+                        value={validupto}
+                        onChangeText={onChangeValidupto}
                     />
                 </View>
-                <Text style={styles.send}>Share</Text>
+                <TouchableOpacity onPress={handleSubmit}>
+                    <Text style={styles.send}>Share</Text>
+                </TouchableOpacity>
+
 
 
 

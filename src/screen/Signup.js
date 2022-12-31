@@ -1,4 +1,4 @@
-import { View, Text, Button, StyleSheet, Dimensions, Image, TextInput, ScrollView, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
+import { View, Text, Button, StyleSheet, Dimensions, Image, TextInput, ScrollView, KeyboardAvoidingView, TouchableOpacity, Picker } from 'react-native'
 import React, { useState } from 'react'
 import SignUpScreenImage from '../../assets/SignUpScreenImage.png'
 import Icon from '@expo/vector-icons/MaterialIcons'
@@ -8,6 +8,7 @@ function Signup({ navigation }) {
     const [name, onChangeName] = useState('')
     const [email, onChangeEmail] = useState('')
     const [phone, onChangePhone] = useState('')
+    const [selectedGender, setSelectedGender] = useState('');
     const [password, onChangePassword] = useState('')
     const [cpassword, onChangeCPassword] = useState('')
     const [error, setError] = useState('')
@@ -26,8 +27,10 @@ function Signup({ navigation }) {
             setError("Invalid Email")
         } else if (!phone) {
             setError("phoneNo Required")
-        } else if (!isphoneNo == 10) {
-            setError("Enter 10 No.")
+        } else if (isphoneNo != 10) {
+            setError("Phone no is not valid")
+        } else if (!selectedGender) {
+            setError("Gender Required")
         } else if (!password) {
             setError("Password Required")
         } else if (!cpassword) {
@@ -35,20 +38,22 @@ function Signup({ navigation }) {
         } else if (password != cpassword) {
             setError("Password Not match")
         } else {
-            fetch('http://localhost:3000/signup', {
+            let result = await fetch('http://localhost:5000/v1/auth/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ name, email, phone, password })
+                body: JSON.stringify({ name, email, phone, gender: selectedGender, password })
             })
                 .then(res => res.json()).then(
-                    data => {
+                    async data => {
                         console.log(data);
                         if (data.error) {
                             setError(data.error);
                         } else {
-                            navigation.navigate('Home');
+                            console.log("Save")
+                            navigation.navigate('Otp', { email: email });
+
                         }
                     }
                 )
@@ -75,7 +80,19 @@ function Signup({ navigation }) {
                     </View>
                     <View style={styles.inputcomp}>
                         <Icon name="store" color='gray' size={22} style={styles.attherate} />
-                        <TextInput placeholder="Phone No." style={styles.input1} value={phone} placeholderTextColor="gray" onChangeText={onChangePhone}></TextInput>
+                        <TextInput placeholder="Phone No." style={styles.input1} value={phone} placeholderTextColor="gray" onChangeText={onChangePhone} maxLength={10}></TextInput>
+                    </View>
+                    <View>
+                        <Picker
+                            selectedValue={selectedGender}
+                            style={{ height: 50, width: '100%', backgroundColor: Theme.colors.background, color: 'white', marginTop: 10, borderRadius: 5, borderBottomWidth: 1, borderBottomColor: 'white' }}
+                            onValueChange={(itemValue, itemIndex) => setSelectedGender(itemValue)}
+                        >
+                            <Picker.Item label="Select Gender" value="gender" disabled={true} />
+                            <Picker.Item label="Male" value="Male" />
+                            <Picker.Item label="Female" value="Female" />
+                        </Picker>
+
                     </View>
                     <View style={styles.inputcomp}>
                         <Icon name="lock" color='gray' size={22} style={styles.attherate} />
@@ -91,9 +108,8 @@ function Signup({ navigation }) {
                             <Text style={styles.loginbtn}>Sign Up</Text>
                         </TouchableOpacity>
                     </View>
-                    <Text style={styles.forRegister}>already have an account? <Text onPress={() => { navigation.navigate("Home") }} style={styles.forRegisterlink}>Login</Text></Text>
+                    <Text style={styles.forRegister}>already have an account? <Text onPress={() => { navigation.navigate("Login") }} style={styles.forRegisterlink}>Login</Text></Text>
                 </View>
-
             </View>
         </ScrollView>
     )

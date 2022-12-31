@@ -1,40 +1,34 @@
-import { View, Text, Button, StyleSheet, Image, TextInput, Dimensions, ScrollView } from 'react-native'
 import React, { useState } from 'react'
+import { View, Text, Button, StyleSheet, Image, TextInput, Dimensions, ScrollView } from 'react-native'
 import LoginScreenImage from '../../assets/LoginScreenImage.png'
 import Icon from '@expo/vector-icons/MaterialIcons'
 import Theme from '../component/Theme'
 
 
-function Login({ navigation }) {
-    const [phone, onChangePhone] = useState('')
-    const [password, onChangePassword] = useState('')
+function Otp({ navigation, route }) {
+    const { email, otherParam } = route.params;
+    const [otp, onChangeOtp] = useState('')
     const [error, setError] = useState('')
-    const [success, setSuccess] = useState('')
-
+    console.log(otp, email);
     const handleSubmit = async (e) => {
         setError('')
-        setSuccess('')
 
-        if (!phone) {
-            setError("Phone No. Required")
-        } else if (phone.length != 10) {
-            setError("Phone is not valid")
-        } else if (!password) {
-            setError("Password Required")
+        if (!otp) {
+            setError("Otp Required")
         } else {
-            fetch('http://localhost:5000/v1/auth/login', {
+            fetch('http://localhost:5000/v1/auth/varify-otp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ phone, password })
+                body: JSON.stringify({ email, otp })
             }).then(res => res.json()).then(
                 async data => {
                     console.log(data);
                     if (data.error) {
                         setError(data.error);
                     } else {
-                        navigation.navigate('Home');
+                        navigation.navigate('Login');
                     }
                 }
             )
@@ -48,25 +42,16 @@ function Login({ navigation }) {
                     <View style={styles.logincomp}>
                         <Text style={styles.logintext}>Login</Text>
                         {error && <Text style={styles.error}>{error}</Text>}
-                        {success && <Text style={styles.success}>{success}</Text>}
                         <View style={styles.inputcomp}>
                             <Icon name="mail" color='white' size={22} style={styles.attherate} />
-                            <TextInput placeholder="Phone No." style={styles.input1} value={phone} placeholderTextColor="gray" onChangeText={onChangePhone} maxLength={10}></TextInput>
+                            <TextInput placeholder="Enter otp" style={styles.input1} value={otp} placeholderTextColor="gray" onChangeText={onChangeOtp} maxLength={6}></TextInput>
                         </View>
 
-                        <View style={styles.inputcomp}>
-                            <Icon name="lock" color='white' size={22} style={styles.attherate} />
-                            <View>
-                                <TextInput secureTextEntry={true} placeholder="Password" style={styles.input2} value={password} placeholderTextColor="gray" onChangeText={onChangePassword}></TextInput>
-                                <Text style={styles.forgot} onPress={() => { navigation.navigate("ForgotPassword") }} >forgot?</Text>
-
-                            </View>
-                        </View>
                         <View>
                             {/*  */}
-                            <Text style={styles.loginbtn} onPress={handleSubmit}>Login</Text>
+                            <Text style={styles.loginbtn} onPress={handleSubmit}>Verify</Text>
                         </View>
-                        <Text style={styles.forRegister}>New to KeyCards?  <Text onPress={() => { navigation.navigate("Signup") }} style={styles.forRegisterlink}>Register</Text></Text>
+                        <Text style={styles.forRegister}>New to KeyCards?  <Text onPress={() => { navigation.navigate("Login") }} style={styles.forRegisterlink}>Login</Text></Text>
                     </View>
                 </View>
             </ScrollView>
@@ -183,4 +168,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Login;
+export default Otp;

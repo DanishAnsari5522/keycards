@@ -6,6 +6,7 @@ import ProfileScreenHeader from "../../Header/ProfileScreenHeader";
 import ProfileComp from "./ProfileComp";
 
 function Profile() {
+
     return (
         <>
             <ProfileScreenHeader />
@@ -18,7 +19,7 @@ function Profile() {
 }
 
 const styles = StyleSheet.create({
- 
+
 })
 
 export default Profile;
