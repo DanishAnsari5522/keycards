@@ -1,5 +1,6 @@
-import { View, Text, Button, StyleSheet, Dimensions, Image, TextInput, ScrollView, KeyboardAvoidingView, TouchableOpacity, Picker } from 'react-native'
 import React, { useState } from 'react'
+import { View, Text, Button, StyleSheet, Dimensions, Image, TextInput, ScrollView, KeyboardAvoidingView, TouchableOpacity ,Picker } from 'react-native'
+// import Picker from '@react-native-picker/picker';
 import SignUpScreenImage from '../../assets/SignUpScreenImage.png'
 import Icon from '@expo/vector-icons/MaterialIcons'
 import Theme from '../component/Theme'
@@ -48,10 +49,9 @@ function Signup({ navigation }) {
                 .then(res => res.json()).then(
                     async data => {
                         console.log(data);
-                        if (data.error) {
-                            setError(data.error);
-                        } else {
-                            console.log("Save")
+                        if (data.success==false) {
+                            setError(data.message);
+                        } else if(data.success==true) {
                             navigation.navigate('Otp', { email: email });
 
                         }

@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import LoginScreenImage from '../../assets/LoginScreenImage.png'
 import Icon from '@expo/vector-icons/MaterialIcons'
 import Theme from '../component/Theme'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 
 
 function Login({ navigation }) {
@@ -31,10 +33,12 @@ function Login({ navigation }) {
             }).then(res => res.json()).then(
                 async data => {
                     console.log(data);
-                    if (data.error) {
-                        setError(data.error);
-                    } else {
-                        navigation.navigate('Home');
+                    if (data.success == false) {
+                        setError(data.message);
+                    } else if (data.success == true) {
+                        console.log(data);
+                        await AsyncStorage.setItem("currentUser", JSON.stringify(data))
+                        navigation.navigate('Home', { token: data.token });
                     }
                 }
             )

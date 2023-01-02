@@ -25,8 +25,8 @@ function Otp({ navigation, route }) {
             }).then(res => res.json()).then(
                 async data => {
                     console.log(data);
-                    if (data.error) {
-                        setError(data.error);
+                    if (data.success==false) {
+                        setError(data.message);
                     } else {
                         navigation.navigate('Login');
                     }

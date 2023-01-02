@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, TextInput, Button, TouchableOpacity } fr
 import Container from "../../component/Container";
 import profile from "../../../assets/Profile.png"
 import Theme from "../../component/Theme";
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function Upload() {
     const [cardkey, onChangeCardskey] = useState('');
@@ -11,8 +12,9 @@ function Upload() {
     const [error, setError] = useState('');
     const handleSubmit = async (e) => {
         setError('')
-        const userId = JSON.parse(localStorage.getItem('user'))
-        console.log(userId._id);
+        const user = await AsyncStorage.getItem("currentUser")
+        const u = JSON.parse(user)
+
         if (!cardkey) {
             setError("key Required")
         } else if (!description) {
@@ -20,12 +22,13 @@ function Upload() {
         } else if (!validupto) {
             setError("validupto Required")
         } else {
-            fetch('http://localhost:3000/addcard', {
+            fetch('http://localhost:5000/v1/post/upload', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + u.token,
                 },
-                body: JSON.stringify({ cardkey, description, validupto, password })
+                body: JSON.stringify({ cardkey, description, validupto })
             })
                 .then(res => res.json()).then(
                     data => {
