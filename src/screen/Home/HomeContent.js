@@ -1,55 +1,40 @@
-import React,{useState} from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, ScrollView, StyleSheet, FlatList, TouchableOpacity, Image, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import Theme from "../../component/Theme";
 import HomeScreenHeader from "../../Header/HomeScreenHeader";
 import Container from "../../component/Container";
 import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 import { BottomPopup } from "../BottomPopup/Index";
-
-const data = [
-    {
-        id: 1,
-        username: "Danish Ansari",
-        lastmsg: "hii..",
-        msgtime: "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available"
-    },
-    {
-        id: 2,
-        username: "Deepak Kumar",
-        lastmsg: "haaa bhai..",
-        msgtime: "publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is availa"
-    },
-    {
-        id: 3,
-        username: "Ashutosh Tiwari",
-        lastmsg: "kysa h",
-        msgtime: "3m ago"
-    },
-    {
-        id: 4,
-        username: "Shubham Mishra",
-        lastmsg: "kysa h",
-        msgtime: "4m ago"
-    },
-    {
-        id: 5,
-        username: "Arvind Kumar",
-        lastmsg: "kysa h",
-        msgtime: "5m ago"
-    },
-    {
-        id: 6,
-        username: "Anjul Kumari",
-        lastmsg: "kysa h",
-        msgtime: "6m ago"
-    },
-
-
-]
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function HomeContent() {
     let popupRef = React.createRef()
     const [more, setMore] = useState(false)
+    const [data, setData] = useState([]);
+    let u;
+
+    let getCards = async () => {
+        let user = await AsyncStorage.getItem("currentUser")
+        u = JSON.parse(user)
+        // setName(u.data.name);
+        console.log(u.data.id);
+        let result = await fetch(`http://localhost:5000/v1/post/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + u.token,
+            }
+        }
+        );
+        // console.log(u.token);
+        result = await result.json();
+
+        if (result) {
+            console.log(result);
+            var data1 = result.data.reverse();
+            setData(data1);
+        }
+    }
 
     const onShowPopup = () => {
         popupRef.show()
@@ -58,18 +43,23 @@ function HomeContent() {
     const onClosePopup = () => {
         popupRef.close()
     }
-     
-    const toggleShowMore = () =>{
+
+    const toggleShowMore = () => {
         setMore(!more)
     }
+
+    useEffect(() => {
+        getCards()
+    }, [])
+
     const renderItem = ({ item }) => (
         <View style={styles.contaner}>
             <View style={styles.usercard}>
                 <View style={styles.usernameandimg}>
                     <Image source={require('../../../assets/Profile.png')} style={styles.userprofilepic} />
                     <View>
-                        <Text style={styles.username}>{item.username}</Text>
-                        <Text style={styles.lastmsg}>{item.lastmsg}</Text>
+                        <Text style={styles.username}>{item.postedby.name}</Text>
+                        <Text style={styles.lastmsg}>{item.datetime}</Text>
                     </View>
                 </View>
                 <Text style={styles.msgtime}>
@@ -79,13 +69,13 @@ function HomeContent() {
                 </Text>
             </View>
             <View style={styles.cardarea}>
-                <Text style={styles.card}>Cards</Text>
+                <Text style={styles.card}>{item.cardkey}</Text>
             </View>
             <View style={styles.cardfooter}>
                 <Text style={styles.redeem}>redeem</Text>
                 <Icon name="message-outline" color="white" size={25} />
             </View>
-            <Text numberOfLines={!more ? 1 : undefined} onPress={toggleShowMore} ellipsizeMode='tail' style={{color:Theme.colors.textColor,paddingHorizontal:15}}>{item.msgtime}</Text>
+            <Text numberOfLines={!more ? 1 : undefined} onPress={toggleShowMore} ellipsizeMode='tail' style={{ color: Theme.colors.textColor, paddingHorizontal: 15 }}>{item.description}</Text>
         </View>
     )
     return (
