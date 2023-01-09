@@ -39,7 +39,7 @@ function Signup({ navigation }) {
         } else if (password != cpassword) {
             setError("Password Not match")
         } else {
-            let result = await fetch('http://localhost:5000/v1/auth/signup', {
+            let result = await fetch('https://keycards-api.onrender.com/v1/auth/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

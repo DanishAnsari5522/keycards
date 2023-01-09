@@ -24,7 +24,7 @@ function Login({ navigation }) {
         } else if (!password) {
             setError("Password Required")
         } else {
-            fetch('http://localhost:5000/v1/auth/login', {
+            fetch('https://keycards-api.onrender.com/v1/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

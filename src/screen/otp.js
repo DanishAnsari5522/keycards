@@ -16,7 +16,7 @@ function Otp({ navigation, route }) {
         if (!otp) {
             setError("Otp Required")
         } else {
-            fetch('http://localhost:5000/v1/auth/varify-otp', {
+            fetch('https://keycards-api.onrender.com/v1/auth/varify-otp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ function Otp({ navigation, route }) {
                 <View style={styles.container}>
                     <Image source={LoginScreenImage} resizeMode="cover" style={styles.Loginimmg} />
                     <View style={styles.logincomp}>
-                        <Text style={styles.logintext}>Login</Text>
+                        <Text style={styles.logintext}>OTP</Text>
                         {error && <Text style={styles.error}>{error}</Text>}
                         <View style={styles.inputcomp}>
                             <Icon name="mail" color='white' size={22} style={styles.attherate} />

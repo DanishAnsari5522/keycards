@@ -1,25 +1,26 @@
-import React,{useState} from "react";
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native'
+import React, { useState } from "react";
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native'
 import Container from "../../component/Container";
 import Theme from "../../component/Theme";
 import SearchScreenHeader from "../../Header/SearchScreenHeader";
 import Icon from '@expo/vector-icons/MaterialIcons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import UserList from "../Search/UserLists";
 
-function Search() {
+function Search({ navigation }) {
     const [name, setName] = useState('');
-    const [data,setData]=useState([]);
+    const [data, setData] = useState([]);
     const searchHandle = async (_name) => {
         const user = await AsyncStorage.getItem("currentUser")
         const u = JSON.parse(user)
         setName(_name)
         // console.log(u.name);
-        let result = await fetch(`http://localhost:5000/v1/user/search?name=${_name}`, {
+        let result = await fetch(`https://keycards-api.onrender.com/v1/user/search?name=${_name}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + u.token,
-                
+
             }
         }
         );
@@ -31,33 +32,34 @@ function Search() {
             setData(result.data);
         }
     }
+
+    const renderItem = ({ item }) => (
+        <View style={styles.contaner}>
+            <View style={styles.mainprofilecomp}>
+                <TouchableOpacity style={styles.profileimgandname} onPress={() => { navigation.navigate("SearchProfile",{id:item._id}) }}>
+                    <Image resizeMode='contain' source={require('../../../assets/Profile.png')} style={styles.profileimg} />
+                    <View style={styles.nameandno}>
+                        <TouchableOpacity style={styles.name}>{item.name}</TouchableOpacity>
+                        <Text style={styles.star}>
+                            <Icon name="star" color='white' size={18} style={styles.arrowback} />
+                            <Icon name="star" color='white' size={18} style={styles.arrowback} />
+                            <Icon name="star" color='white' size={18} style={styles.arrowback} />
+                            <Icon name="star" color='white' size={18} style={styles.arrowback} />
+                        </Text>
+                    </View>
+                </TouchableOpacity>
+                <Text style={styles.invite}>Add to Circle</Text>
+            </View>
+        </View>
+    )
     return (
         <>
-            <SearchScreenHeader searchHandle={searchHandle} name={name}/>
-            <Container >
-                <ScrollView style={styles.main} showsVerticalScrollIndicator={false}>
-                   {
-                    data.map((item,index)=>{
-                        return(
-                            <View style={styles.mainprofilecomp}>
-                            <View style={styles.profileimgandname}>
-                                <Image resizeMode='contain' source={require('../../../assets/Profile.png')} style={styles.profileimg} />
-                                <View style={styles.nameandno}>
-                                    <Text style={styles.name}>{item.name}</Text>
-                                        <Text style={styles.star}>
-                                            <Icon name="star" color='white' size={18} style={styles.arrowback} />
-                                            <Icon name="star" color='white' size={18} style={styles.arrowback} />
-                                            <Icon name="star" color='white' size={18} style={styles.arrowback} />
-                                            <Icon name="star" color='white' size={18} style={styles.arrowback} />
-                                        </Text>
-                                </View>
-                            </View>
-                            <Text style={styles.invite}>Add to Circle</Text>
-                        </View>
-                        )
-                    })
-                   }
-                </ScrollView>
+            <SearchScreenHeader searchHandle={searchHandle} name={name} />
+            <Container>
+                <FlatList
+                    data={data}
+                    renderItem={renderItem}
+                />
             </Container>
 
         </>

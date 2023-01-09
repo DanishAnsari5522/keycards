@@ -22,7 +22,7 @@ function Upload() {
         } else if (!validupto) {
             setError("validupto Required")
         } else {
-            fetch('http://localhost:5000/v1/post/upload', {
+            fetch('https://keycards-api.onrender.com/v1/post/upload', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

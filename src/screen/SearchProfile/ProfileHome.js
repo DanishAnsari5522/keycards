@@ -5,20 +5,22 @@ import Theme from '../../component/Theme';
 import Icon from '@expo/vector-icons/MaterialIcons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { FlatGrid } from 'react-native-super-grid';
+import Container from '../../component/Container';
+import ProfileHomeHeader from './ProfileHomeHeader';
 
 
-function ProfileComp() {
+function ProfileHome({ route }) {
     const navigation = useNavigation();
     const [data, setData] = useState([]);
     const [cards, setCards] = useState([]);
     let u;
+    const { id } = route.params;
 
     let getCurrentUser = async () => {
         let user = await AsyncStorage.getItem("currentUser")
         u = JSON.parse(user)
-        // setName(u.data.name);
         console.log(u.data.id);
-        let result = await fetch(`https://keycards-api.onrender.com/v1/user?id=${u.data.id}`, {
+        let result = await fetch(`https://keycards-api.onrender.com/v1/user?id=${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -38,7 +40,7 @@ function ProfileComp() {
     const getCords = async () => {
         let user = await AsyncStorage.getItem("currentUser")
         u = JSON.parse(user)
-        let result = await fetch(`https://keycards-api.onrender.com/v1/post/getuserposts?id=${u.data.id}`, {
+        let result = await fetch(`https://keycards-api.onrender.com/v1/post/getuserposts?id=${id}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -62,44 +64,47 @@ function ProfileComp() {
 
     return (
         <>
-            <View style={styles.main}>
-                <View style={styles.postandcircle}>
-                    <Image source={require('../../../assets/Profile.png')} style={styles.profileimg} />
-                    <TouchableOpacity style={styles.post} onPress={() => navigation.navigate("Test")}>
-                        <Text style={styles.no}>{data.posts}</Text>
-                        <Text style={styles.no}>Cards</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.circle} onPress={() => navigation.navigate("CircleList")}>
-                        <Text style={styles.no}>{data.followers}</Text>
-                        <Text style={styles.no}>Circle</Text>
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.nameandrank}>
-                    <Text style={styles.name}>{data.name}</Text>
-                    {/* <Text style={styles.star}>
+         <ProfileHomeHeader />
+            <Container>
+               
+                <View style={styles.main}>
+                    <View style={styles.postandcircle}>
+                        <Image source={require('../../../assets/Profile.png')} style={styles.profileimg} />
+                        <TouchableOpacity style={styles.post} onPress={() => navigation.navigate("Test")}>
+                            <Text style={styles.no}>{data.posts}</Text>
+                            <Text style={styles.no}>Cards</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.circle} onPress={() => navigation.navigate("CircleList")}>
+                            <Text style={styles.no}>{data.followers}</Text>
+                            <Text style={styles.no}>Circle</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.nameandrank}>
+                        <Text style={styles.name}>{data.name}</Text>
+                        {/* <Text style={styles.star}>
                         <Icon name="star" color='white' size={18} style={styles.arrowback} />
                         <Icon name="star" color='white' size={18} style={styles.arrowback} />
                         <Icon name="star" color='white' size={18} style={styles.arrowback} />
                         <Icon name="star" color='white' size={18} style={styles.arrowback} />
                     </Text> */}
+                    </View>
+                    <View>
+                        <Text style={styles.card}>Cards List</Text>
+                        <FlatGrid
+                            itemDimension={200}
+                            data={cards}
+                            style={styles.gridView}
+                            spacing={10}
+                            renderItem={({ item }) => (
+                                <View style={[styles.itemContainer, { backgroundColor: Theme.colors.cardcolor, borderRadius: 4, padding: 20, width: 200, height: 100 }]}>
+                                    <Text style={styles.itemName}>{item.cardkey}</Text>
+                                    <Text style={styles.itemCode}>{item.cardkey}</Text>
+                                </View>
+                            )}
+                        />
+                    </View>
                 </View>
-                <View>
-                    <Text style={styles.card}>Cards List</Text>
-                    <FlatGrid
-                        itemDimension={200}
-                        data={cards}
-                        style={styles.gridView}
-                        spacing={10}
-                        renderItem={({ item }) => (
-                            <View style={[styles.itemContainer, { backgroundColor: Theme.colors.cardcolor ,borderRadius:4,padding:20,width:200,height:100}]}>
-                                <Text style={styles.itemName}>{item.cardkey}</Text>
-                                <Text style={styles.itemCode}>{item.cardkey}</Text>
-                            </View>
-                        )}
-                    />
-                </View>
-            </View>
-
+            </Container>
         </>
     )
 }
@@ -113,7 +118,7 @@ const styles = StyleSheet.create({
     gridView: {
         marginTop: 10,
         flex: 1,
-      },
+    },
     //
     main: {
         height: windowHeight,
@@ -182,4 +187,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default ProfileComp;
+export default ProfileHome;

@@ -7,7 +7,7 @@ import Icon from '@expo/vector-icons/MaterialCommunityIcons'
 import { BottomPopup } from "../BottomPopup/Index";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-function HomeContent() {
+function HomeContent({ navigation }) {
     let popupRef = React.createRef()
     const [more, setMore] = useState(false)
     const [data, setData] = useState([]);
@@ -18,7 +18,7 @@ function HomeContent() {
         u = JSON.parse(user)
         // setName(u.data.name);
         console.log(u.data.id);
-        let result = await fetch(`http://localhost:5000/v1/post/`, {
+        let result = await fetch(`https://keycards-api.onrender.com/v1/post/`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -55,13 +55,13 @@ function HomeContent() {
     const renderItem = ({ item }) => (
         <View style={styles.contaner}>
             <View style={styles.usercard}>
-                <View style={styles.usernameandimg}>
+                <TouchableOpacity style={styles.usernameandimg} onPress={() => { navigation.navigate("ProfileHome", { id: item.postedby._id }) }}>
                     <Image source={require('../../../assets/Profile.png')} style={styles.userprofilepic} />
                     <View>
                         <Text style={styles.username}>{item.postedby.name}</Text>
                         <Text style={styles.lastmsg}>{item.datetime}</Text>
                     </View>
-                </View>
+                </TouchableOpacity>
                 <Text style={styles.msgtime}>
                     <TouchableWithoutFeedback onPress={onShowPopup}>
                         <Icon name="dots-vertical" color="white" size={20} />

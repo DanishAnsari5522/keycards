@@ -9,9 +9,9 @@ function HomeScreenHeader() {
     return (
         <View style={styles.contaner}>
             <Text style={styles.username}>KeyCards</Text>
-            <TouchableOpacity onPress={() => { navigation.navigate("Chat") }}>
+            {/* <TouchableOpacity onPress={() => { navigation.navigate("Chat") }}>
                 <Ionicons name="chatbubble-ellipses-sharp" size={30} color="white" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     )
 }
