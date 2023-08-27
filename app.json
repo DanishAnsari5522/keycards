@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "keycards",
+    "slug": "keycards",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/D.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/D.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#062635"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/D.png",
+        "backgroundColor": "#062635"
+      },
+      "package": "com.zanish.keycards"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "12dae371-cb68-4bd0-ad8f-758cd267fbad"
+      }
+    }
+  }
+}
